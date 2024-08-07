@@ -28,17 +28,17 @@ class Controller:
         try:
             date_param = f"{year}-{month}"
             tables = ['eit171', 'eit195', 'eit284', 'eit304', 'hmiigr', 'hmimag']
+            namerow = ['data171', 'data195', 'data284', 'data304', 'datahmiigr', 'datahmimag']
             data = {}
 
             if month in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
                 date_param = f"{year}-0{month}"
 
 
-            for table in tables:
+            for table, name in zip(tables, namerow):
                 query = text(f"SELECT * FROM {table} WHERE date LIKE '{date_param}%'")
                 result = session.execute(query).fetchall()
-                data[table] = {"rows": [dict(row._mapping) for row in result]}
-                print(f"Query for table {table}: {query}")
+                data[name] = {"rows": [dict(row._mapping) for row in result]}
 
 
         except SQLAlchemyError as error:

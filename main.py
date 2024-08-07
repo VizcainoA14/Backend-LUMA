@@ -22,16 +22,9 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
-
-
 @app.get("/api/get-data")
 async def get_data(date: date = Query(...)):
 
     controller = Controller()
     data = controller.get_data(str(date.year), str(date.month))
     return data
-
-    
