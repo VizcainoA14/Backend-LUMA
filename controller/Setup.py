@@ -5,7 +5,7 @@ CONFIG = ".config"
 
 
 def set_up():
-    """Sets up configuration for the app"""
+    """Sets up configuration for the database"""
 
     env = os.getenv("ENV", CONFIG)
 

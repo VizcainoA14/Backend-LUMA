@@ -1,8 +1,8 @@
-from typing import Union
-from datetime import date
-from controller.Controller import Controller
 from fastapi import FastAPI, Query
+from datetime import date
+from typing import Optional
 from starlette.middleware.cors import CORSMiddleware
+from controller.Controller import Controller
 
 
 app = FastAPI()
@@ -27,4 +27,14 @@ async def get_data(date: date = Query(...)):
 
     controller = Controller()
     data = controller.get_data(str(date.year), str(date.month))
+    return data
+
+
+@app.get("/api/get-range")
+async def get_range(
+    startDate: Optional[date] = Query(None),
+    endDate: Optional[date] = Query(None)
+):
+    controller = Controller()
+    data = controller.get_range(str(startDate), str(endDate))
     return data
